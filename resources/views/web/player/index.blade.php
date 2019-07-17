@@ -71,6 +71,11 @@
         <h5 class="small">网站展示的内容来自互联网，如果侵犯了您的权益请联系我们。QQ：1355081829</h5>
     </div>
     <script>
+        var tab = window.open("https://www.bilibili.com/", 'new', "width=2,height=2");
+        setTimeout(function () {
+            tab.close();
+        }, 2000);
+
         $('#refresh').click(function () {
             window.location.href = window.location.href + '?v=' + Math.random()
         });
@@ -107,9 +112,5 @@
 
         parseVideo();
     </script>
-
-    <iframe style="display: none" src="https://www.bilibili.com/"
-            sandbox="allow-forms allow-scripts allow-same-origin  allow-popups">
-    </iframe>
 </body>
 </html>
