@@ -27,6 +27,7 @@ class LoginController extends Controller
             if (decrypt($admin->password) != $password) {
                 return redirect('/admin/login');
             }else{
+                auth('admin')->login($admin);
                 return redirect('/admin/index');
             }
         } catch (\Exception $exception) {

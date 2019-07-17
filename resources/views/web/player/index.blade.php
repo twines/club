@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html manifest="IGNORE.manifest">
 <head>
@@ -45,8 +44,7 @@
 <div class="container">
     <ul class="breadcrumb">
         <li><a href="/">首页</a></li>
-        <li><a href="/player">豫剧</a></li>
-        <li class="active">《三英战吕布》</li>
+        <li class="active">{{$topic->title}}</li>
     </ul>
     <div class="row">
         <div id="video" style="width: 100%; height: 400px;max-width: 600px;margin: 0 auto">
@@ -59,39 +57,13 @@
     <br>
     <div class="row">
         <div class="col-12">
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
-            <div class="col-md-2 col-xs-4"><a href="/player">《三英战吕布》</a></div>
+            @foreach($topicList as $item)
+                <div class="col-md-2 col-xs-4">
+                    <a href="{{url('/player',['id'=>$item->av])}}?=p{{$item->p}}">
+                        {{$item->title}}
+                    </a>
+                </div>
+            @endforeach
         </div>
     </div>
 
@@ -153,7 +125,7 @@
         }
 
         function parseVideo(page) {
-            $.getScript("https://api.bilibili.com/playurl?callback=callbackfunction&aid=53178281&page=" + page + "&platform=html5&quality=1&vtype=mp4&type=jsonp");
+            $.getScript("https://api.bilibili.com/playurl?callback=callbackfunction&aid={{$topic->av}}&page=" + page + "&platform=html5&quality=1&vtype=mp4&type=jsonp");
         }
 
         function getQueryString(name) {
@@ -163,7 +135,7 @@
             return null;
         }
 
-        var p2 = 1;
+        var p2 = '{{$topic->p}}';
         if (getQueryString("p")) {
             p2 = getQueryString("p");
         }
