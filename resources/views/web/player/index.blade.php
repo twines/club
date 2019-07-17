@@ -47,25 +47,25 @@
         <li class="active">{{$topic->title}}</li>
     </ul>
     <div class="row">
-        <div id="video" style="width: 100%; height: 400px;max-width: 600px;margin: 0 auto">
+        <div class="col-sm-9">
+            <div id="video" style="width: 100%; height: 400px;max-width: 600px;margin: 0 auto">
+            </div>
+            <div class="row text-center center-block">
+                <a class="btn btn-primary" id="refresh">刷新重试</a>
+            </div>
         </div>
-    </div>
-    <br>
-    <div class="row text-center center-block">
-        <a class="btn btn-primary" id="refresh">刷新重试</a>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col-12">
+        <div class="col-sm-3">
+            <a href="#" class="list-group-item active">
+                {{$topic->title}}
+            </a>
             @foreach($topicList as $item)
-                <div class="col-md-2 col-xs-4">
-                    <a href="{{url('/player',['id'=>$item->av])}}?=p{{$item->p}}">
-                        {{$item->title}}
-                    </a>
-                </div>
+                <a class="list-group-item" href="{{url('/player',['id'=>$item->av])}}?=p{{$item->p}}">
+                    {{$item->title}}
+                </a>
             @endforeach
         </div>
     </div>
+
 
     <div class="jumbotron text-center" style="margin-bottom:0">
         <h5 class="small">网站展示的内容来自互联网，如果侵犯了您的权益请联系我们。QQ：1355081829</h5>
@@ -74,30 +74,12 @@
         $('#refresh').click(function () {
             window.location.href = window.location.href + '?v=' + Math.random()
         });
-        var videoObject = {
-            container: '#video', //容器的ID或className
-            variable: 'player', //播放函数名称
-            loop: true, //播放结束是否循环播放
-            autoplay: false,//是否自动播放
-            poster: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562957718296&di=f7f9b430582e683c320815300d97aa2d&imgtype=0&src=http%3A%2F%2Fimg1.gtimg.com%2Frushidao%2Fpics%2Fhv1%2F54%2F85%2F2239%2F145612704.jpg',
-            preview: {
-                scale: 2
-            },
-            // flashplayer:true,
-            //live:true,
-            //debug:true,
-            video: [
-                ['', 'video/mp4', '中文标清', 0],
-            ]
-        };
-        var player = new ckplayer(videoObject);
 
         function callbackfunction(j) {
             var u = j.durl[0].url;
             var videoObject = {
                 container: '#video', //容器的ID或className
                 variable: 'player', //播放函数名称
-                loaded: 'loadedHandler', //当播放器加载后执行的函数
                 loop: true, //播放结束是否循环播放
                 autoplay: false,//是否自动播放
                 poster: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562957718296&di=f7f9b430582e683c320815300d97aa2d&imgtype=0&src=http%3A%2F%2Fimg1.gtimg.com%2Frushidao%2Fpics%2Fhv1%2F54%2F85%2F2239%2F145612704.jpg',
@@ -112,16 +94,7 @@
                     [u, 'video/mp4', '中文标清', 0],
                 ]
             };
-            player = new ckplayer(videoObject);
-        }
-
-        function loadedHandler() {
-            player.addListener('error', errorHandler); //监听视频加载出错
-        }
-
-        function errorHandler() {
-            alert()
-            window.location.reload()
+            new ckplayer(videoObject);
         }
 
         function parseVideo(page) {
