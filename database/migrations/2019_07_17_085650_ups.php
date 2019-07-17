@@ -20,6 +20,9 @@ class Ups extends Migration
 
             $table->string('name')
                 ->comment('影片名称');
+            $table->string('up_center')
+                ->nullable()
+                ->comment('up主主页地址');
 
             $table->string('img')
                 ->nullable()

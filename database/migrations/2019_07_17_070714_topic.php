@@ -21,6 +21,8 @@ class Topic extends Migration
             $table->string('av')
                 ->unique()
                 ->comment('专题在B站唯一标识');
+            $table->string('topic_url')
+                ->comment('专题的地址');
 
             $table->string('up_id')
                 ->index()
