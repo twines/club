@@ -27,11 +27,26 @@ class TopicVideos extends Migration
                 ->comment('视频封面');
 
 
-            $table->string('vid')
+            $table->string('av')
                 ->index()
-                ->comment('视频在');
+                ->comment('视频在B站的标识');
+
+            $table->string('p')
+                ->default(1)
+                ->comment('在专辑里面的页码');
 
 
+            $table->string('title')
+                ->nullable()
+                ->comment('视频标题');
+
+            $table->string('description')
+                ->nullable()
+                ->comment('视频描述');
+
+            $table->unsignedInteger('view_number')
+                ->default(1)
+                ->comment('观看次数');
 
             $table->unsignedTinyInteger('status')
                 ->default(0)

@@ -18,6 +18,10 @@ class Topic extends Migration
 
             $table->bigIncrements('id');
 
+            $table->string('av')
+                ->unique()
+                ->comment('专题在B站唯一标识');
+
             $table->string('up_id')
                 ->index()
                 ->comment('up主的唯一标识');
@@ -29,6 +33,10 @@ class Topic extends Migration
             $table->string('title')
                 ->nullable()
                 ->comment('专题标题');
+
+            $table->string('description')
+                ->nullable()
+                ->comment('专题描述');
 
 
             $table->unsignedTinyInteger('status')
