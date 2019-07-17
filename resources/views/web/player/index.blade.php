@@ -51,7 +51,7 @@
             <div id="video" style="width: 100%; height: 400px;max-width: 600px;margin: 0 auto">
             </div>
             <div class="row text-center center-block">
-                <a class="btn btn-primary" id="refresh">刷新重试</a>
+                <a class="btn btn-primary hidden" id="refresh">刷新重试</a>
             </div>
         </div>
         <div class="col-sm-3">
@@ -59,7 +59,7 @@
                 {{$topic->title}}
             </a>
             @foreach($topicList as $item)
-                <a class="list-group-item" href="{{url('/player',['id'=>$item->av])}}?=p{{$item->p}}">
+                <a class="list-group-item" href="{{url('/player',['id'=>$item->av])}}?p={{$item->p}}">
                     {{$item->title}}
                 </a>
             @endforeach
@@ -74,15 +74,19 @@
         $('#refresh').click(function () {
             window.location.href = window.location.href + '?v=' + Math.random()
         });
+        var timer = setTimeout(function () {
+            $('#refresh').show();
+        }, 5000);
 
         function callbackfunction(j) {
+            clearTimeout(timer);
             var u = j.durl[0].url;
             var videoObject = {
                 container: '#video', //容器的ID或className
                 variable: 'player', //播放函数名称
                 loop: true, //播放结束是否循环播放
                 autoplay: false,//是否自动播放
-                poster: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562957718296&di=f7f9b430582e683c320815300d97aa2d&imgtype=0&src=http%3A%2F%2Fimg1.gtimg.com%2Frushidao%2Fpics%2Fhv1%2F54%2F85%2F2239%2F145612704.jpg',
+                poster: j.img,
                 preview: {
                     file: [j.img],
                     scale: 2
@@ -97,22 +101,11 @@
             new ckplayer(videoObject);
         }
 
-        function parseVideo(page) {
-            $.getScript("https://api.bilibili.com/playurl?callback=callbackfunction&aid={{$topic->av}}&page=" + page + "&platform=html5&quality=1&vtype=mp4&type=jsonp");
+        function parseVideo() {
+            $.getScript("https://api.bilibili.com/playurl?callback=callbackfunction&aid={{$topic->av}}&page={{$p}}&platform=html5&quality=1&vtype=mp4&type=jsonp");
         }
 
-        function getQueryString(name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-            var r = window.location.search.substr(1).match(reg);
-            if (r != null) return unescape(r[2]);
-            return null;
-        }
-
-        var p2 = '{{$topic->p}}';
-        if (getQueryString("p")) {
-            p2 = getQueryString("p");
-        }
-        parseVideo(p2);
+        parseVideo();
     </script>
 
     <iframe style="display: none" src="https://www.bilibili.com/"

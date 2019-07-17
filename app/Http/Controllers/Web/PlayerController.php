@@ -13,6 +13,7 @@ class PlayerController extends Controller
     public function index(Request $request,$aid)
     {
         $topic = Topic::where('av', $aid)->first();
+        $pageData['p'] = $request->get('p', 1);
         if (!$topic) {
             abort(404);
         }
