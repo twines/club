@@ -16,5 +16,8 @@ Route::group(['namespace' => 'Admin'], function () {
     Route::post('/login', 'LoginController@doLogin');
     Route::group(['middleware' => ['admin']], function () {
         Route::get('/index', 'IndexController@index');
+        Route::get('/up', 'UpController@index');
+        Route::get('/video', 'VideoController@index');
+        Route::get('/topic', 'TopicController@index');
     });
 });
