@@ -1,4 +1,7 @@
 @extends('web.layout.app')
+@section('title')
+    {{$topic->title}}
+@endsection
 @section('content')
     <ul class="breadcrumb">
         <li><a href="/">首页</a></li>

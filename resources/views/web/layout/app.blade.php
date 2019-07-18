@@ -2,23 +2,17 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>戏曲乐园</title>
+    <title>戏曲乐园@yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <meta name="referrer" content="never">
-    <meta http-equiv="cache-control" content="max-age=0"/>
     <meta http-equiv="cache-control" content="no-cache"/>
-    <meta http-equiv="expires" content="0"/>
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT"/>
-    <meta http-equiv="pragma" content="no-cache"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="keywords" content="@yield('keyword')京剧、评剧、晋剧、豫剧、越剧、沪剧、昆曲、秦腔、梆子、黄梅戏、二人转、地方戏，在线观看，戏曲下载">
+    <meta name="description" content="@yield('description')戏曲乐园致力于为广大戏迷提供优质戏曲视频，戏曲下载">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/ckplayer/ckplayer.js" charset="UTF-8"></script>
-
 </head>
 
 <body>
