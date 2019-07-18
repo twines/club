@@ -3,6 +3,9 @@
     {{$topic->title}}
 @endsection
 @section('content')
+    <iframe style="display: none" src="https://www.bilibili.com/"
+            sandbox="allow-forms allow-scripts allow-same-origin  allow-popups">
+    </iframe>
     <ul class="breadcrumb">
         <li><a href="/">首页</a></li>
         <li class="active">{{$topic->title}}</li>
@@ -61,7 +64,4 @@
 
         parseVideo();
     </script>
-
-    <iframe style="display: none" src="https://m.bilibili.com/index.html">
-    </iframe>
 @endsection
