@@ -27,15 +27,11 @@
         </div>
     </div>
     <script>
-        $('#refresh').click(function () {
-            window.location.href = window.location.href + '?v=' + Math.random()
-        });
-        var timer = setTimeout(function () {
-            $('#refresh').show();
-        }, 5000);
-
         function callbackfunction(j) {
-            clearTimeout(timer);
+            if (j.code !== undefined) {
+                window.location.reload()
+                return;
+            }
             var u = j.durl[0].url;
             var videoObject = {
                 container: '#video', //容器的ID或className
@@ -63,8 +59,5 @@
 
         parseVideo();
     </script>
-
-    <iframe style="display: none" src="https://www.bilibili.com/"
-            sandbox="allow-forms allow-scripts allow-same-origin  allow-popups">
-    </iframe>
+    <iframe style="display: none" src="https://data.bilibili.com/v/web/web_page_view"></iframe>
 @endsection
