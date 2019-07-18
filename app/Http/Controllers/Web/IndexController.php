@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class IndexController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request, $id = 0)
     {
         $pageData['topicList'] = Topic::orderby('id', 'desc')->paginate();
         return view('web.index.index', $pageData);

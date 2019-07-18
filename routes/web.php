@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['namespace'=>'Web'], function () {
-    Route::get('/', 'IndexController@index');
+Route::group(['namespace' => 'Web', 'middleware' => ['webMiddleware']], function () {
+    Route::get('/{id?}', 'IndexController@index');
     Route::get('/player/{aid}', 'PlayerController@index');
 });
