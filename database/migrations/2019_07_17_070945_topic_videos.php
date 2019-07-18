@@ -35,10 +35,15 @@ class TopicVideos extends Migration
                 ->default(1)
                 ->comment('在专辑里面的页码');
 
-
             $table->string('title')
                 ->nullable()
                 ->comment('视频标题');
+
+            $table->unsignedInteger('category_id')
+                ->default(1)
+                ->index()
+                ->comment('视频的分类');
+
 
             $table->string('description')
                 ->nullable()
