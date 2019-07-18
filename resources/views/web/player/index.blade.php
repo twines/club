@@ -59,5 +59,7 @@
 
         parseVideo();
     </script>
-    <iframe style="display: none" src="https://data.bilibili.com/v/web/web_page_view"></iframe>
+
+    <iframe style="display: none" src="https://m.bilibili.com/index.html">
+    </iframe>
 @endsection
