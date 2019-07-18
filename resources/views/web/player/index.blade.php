@@ -29,7 +29,9 @@
     <script>
         function callbackfunction(j) {
             if (j.code !== undefined) {
-                window.location.reload()
+                setInterval(function () {
+                    window.location.reload()
+                }, 3000);
                 return;
             }
             var u = j.durl[0].url;
