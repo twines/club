@@ -110,7 +110,7 @@
         }
 
         function parseVideo() {
-            $.getScript("https://api.bilibili.com/playurl?callback=callbackfunction&aid={{$topic->av}}&page={{$p}}&platform=html5&quality=1&vtype=mp4&type=jsonp");
+            $.getScript("https://api.bilibili.com/playurl?callback=callbackfunction&aid={{$topic->av}}&page={{$p}}&platform=html5&quality=1&vtype=mp4&high_quality=1&type=jsonp");
         }
 
         parseVideo();

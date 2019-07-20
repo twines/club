@@ -1,4 +1,5 @@
 @extends('web.layout.app')
+@section("title")@if($category){{$category->category_name}}@endif @endsection
 @section('content')
     <div class="row">
         @foreach($topicList as $topic)
