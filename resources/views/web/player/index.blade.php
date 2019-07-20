@@ -13,10 +13,10 @@
     <div class="row">
         <div class="col-sm-9">
             <iframe
-                    width="10"
-                    height="10"
+                    width="8"
+                    height="8"
                     id="main"
-                    src="https://www.bilibili.com/blackboard/html5mobileplayer.html?aid=20960807&cid=34359400&page=1&high_quality=1">
+                    src="https://www.bilibili.com/blackboard/html5mobileplayer.html?aid=54886554&cid=95990482&page=4&high_quality=1">
             </iframe>
             <div id="video" style="width: 100%; height: 400px;max-width: 600px;margin: 0 auto">
             </div>
@@ -36,6 +36,7 @@
         </div>
     </div>
     <script>
+        var flag = false;
         var browser = {
             versions: function () {
                 var u = navigator.userAgent, app = navigator.appVersion;
@@ -59,16 +60,21 @@
             if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
                 if (ua.match(/MicroMessenger/i) == "micromessenger") {
                     //在微信中打开
-                    $('#main').css({"width": "100%", "height": "100%","back-ground":"red"});
+                    $('#main').css({"width": "100%", "height": "100%", "back-ground": "red"});
                     var mainheight = $(this).contents().find("body").width() + 300;
                     $(this).height(mainheight);
-                    $('#video').hide()
+
+                    //如果直接加载成功就展示ckplayer 否则用B的播放器
+                    if (!flag) {
+                        $('#video').hide();
+                    }
                 } else {
                     $('#video').show()
                     $('#main').css({'position': 'absolute', "z-index": "-9999", "top": 200, "left": 50})
                 }
             }
         });
+
         function callbackfunction(j) {
             if (j.code !== undefined) {
                 var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
@@ -79,6 +85,8 @@
                 }
                 return;
             }
+            flag = true;
+            $('#video').show()
             $('#main').hide()
             var u = j.durl[0].url;
             var videoObject = {
