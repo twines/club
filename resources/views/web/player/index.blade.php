@@ -3,15 +3,21 @@
     {{$topic->title}}
 @endsection
 @section('content')
-    <iframe style="display: none" src="https://www.bilibili.com/"
-            sandbox="allow-forms allow-scripts allow-same-origin  allow-popups">
-    </iframe>
+    {{--<iframe style="display: none" src="https://www.bilibili.com/"--}}
+    {{--sandbox="allow-forms allow-scripts allow-same-origin  allow-popups">--}}
+    {{--</iframe>--}}
     <ul class="breadcrumb">
         <li><a href="/">首页</a></li>
         <li class="active">{{$topic->title}}</li>
     </ul>
     <div class="row">
         <div class="col-sm-9">
+            <iframe
+                    width="10"
+                    height="10"
+                    id="main"
+                    src="https://www.bilibili.com/blackboard/html5mobileplayer.html?aid=20960807&cid=34359400&page=1&high_quality=1">
+            </iframe>
             <div id="video" style="width: 100%; height: 400px;max-width: 600px;margin: 0 auto">
             </div>
             <div class="row text-center center-block">
@@ -30,13 +36,50 @@
         </div>
     </div>
     <script>
+        var browser = {
+            versions: function () {
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return {         //移动终端浏览器版本信息
+                    trident: u.indexOf('Trident') > -1, //IE内核
+                    presto: u.indexOf('Presto') > -1, //opera内核
+                    webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                    mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+                    iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                    iPad: u.indexOf('iPad') > -1, //是否iPad
+                    webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+                };
+            }(),
+            language: (navigator.browserLanguage || navigator.language).toLowerCase()
+        };
+        var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+        $("#main").load(function () {
+            if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+                if (ua.match(/MicroMessenger/i) == "micromessenger") {
+                    //在微信中打开
+                    $('#main').css({"width": "100%", "height": "100%","back-ground":"red"});
+                    var mainheight = $(this).contents().find("body").width() + 300;
+                    $(this).height(mainheight);
+                    $('#video').hide()
+                } else {
+                    $('#video').show()
+                    $('#main').css({'position': 'absolute', "z-index": "-9999", "top": 200, "left": 50})
+                }
+            }
+        });
         function callbackfunction(j) {
             if (j.code !== undefined) {
-                setInterval(function () {
-                    window.location.reload()
-                }, 3000);
+                var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+                if (ua.match(/MicroMessenger/i) != "micromessenger") {
+                    setInterval(function () {
+                        window.location.reload()
+                    }, 1000);
+                }
                 return;
             }
+            $('#main').hide()
             var u = j.durl[0].url;
             var videoObject = {
                 container: '#video', //容器的ID或className
