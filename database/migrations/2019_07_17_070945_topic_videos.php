@@ -31,6 +31,10 @@ class TopicVideos extends Migration
                 ->index()
                 ->comment('视频在B站的标识');
 
+            $table->string('cid')
+                ->index()
+                ->comment('视频在B站的专辑里面的cid');
+
             $table->string('p')
                 ->default(1)
                 ->comment('在专辑里面的页码');
@@ -54,8 +58,8 @@ class TopicVideos extends Migration
                 ->comment('观看次数');
 
             $table->unsignedTinyInteger('status')
-                ->default(0)
-                ->comment('状态1可用，0禁用');
+                ->default(2)
+                ->comment('状态0禁用，1可用，2新抓取');
 
             $table->timestamps();
         });
