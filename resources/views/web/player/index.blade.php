@@ -18,7 +18,7 @@
                     id="main"
                     src="https://www.bilibili.com/blackboard/html5mobileplayer.html?aid=54886554&cid=95990482&page=4&high_quality=1">
             </iframe>
-            <div id="video" style="width: 100%; height: 400px;max-width: 600px;margin: 0 auto">
+            <div id="video" style="width: 100%;margin: 0 auto">
             </div>
             <div class="row text-center center-block">
                 <a class="btn btn-primary hidden" id="refresh">刷新重试</a>
