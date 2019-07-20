@@ -33,6 +33,8 @@
                     {{$item->title}}
                 </a>
             @endforeach
+            <img src="/pay.jpg" class="img-responsive">
+            <h2>期待您的赞赏，有您的支持才有更加丰富的戏曲节目。</h2>
         </div>
     </div>
     <script>
@@ -74,6 +76,7 @@
                 }
             }
         });
+        var player;
 
         function callbackfunction(j) {
             if (j.code !== undefined) {
@@ -92,13 +95,45 @@
             var videoObject = {
                 container: '#video', //容器的ID或className
                 variable: 'player', //播放函数名称
-                loop: true, //播放结束是否循环播放
+                loop: false, //播放结束是否循环播放
                 autoplay: false,//是否自动播放
                 poster: j.img,
                 preview: {
                     file: [j.img],
                     scale: 2
                 },
+                promptSpot: [ //提示点
+                    {
+                        words: '提示点文字01',
+                        time: 30
+                    },
+                    {
+                        words: '提示点文字02',
+                        time: 150
+                    }
+                ],
+                // adfront: '/pay.jpg', //前置广告
+                // adfronttime: '15',//前置广告单个时长
+                // // adfrontlink: 'https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh,https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh',
+                // adfronttype: 'jpg',
+
+                adpause: '/pay.jpg',
+                adpausetime: '15',//暂信广告每个播放5秒种然后循环播放
+                // adpauselink: 'https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh,https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh',
+
+
+                adinsert: '/pay.jpg',
+                adinserttime: '15',//中间插入广告的单个视频的时长
+                // adinsertlink: 'https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh,https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh',
+                adinserttype: 'jpg',
+                inserttime: '300',//中间插入广告需要显示的时间点
+
+                adend: '/pay.jpg',
+                adendtime: '15,50',
+                adendtype: 'jpg,mp4',
+                // adendlink: 'https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh,https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh',
+                //advertisements:'website:ad.json',//广告部分也可以用一个json文件来进行配置，可以动态文件
+                //广告部分结束
                 // flashplayer:true,
                 //live:true,
                 //debug:true,
@@ -106,8 +141,9 @@
                     [u, 'video/mp4', '中文标清', 0],
                 ]
             };
-            new ckplayer(videoObject);
+            player = new ckplayer(videoObject);
         }
+
 
         function parseVideo() {
             $.getScript("https://api.bilibili.com/playurl?callback=callbackfunction&aid={{$topic->av}}&page={{$p}}&platform=html5&quality=1&vtype=mp4&high_quality=1&type=jsonp");
