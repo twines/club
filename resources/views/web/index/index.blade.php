@@ -11,7 +11,7 @@
                         <h3>{{$topic->title}}</h3>
                         <p>{{$topic->description}}</p>
                         <p>
-                            <a href="{{url('/player',['id'=>$topic->av])}}" class="btn btn-primary" role="button">
+                            <a href="{{url('/player',['id'=>$topic->av,'p'=>1])}}.html" title="{{$topic->title}}" class="btn btn-primary" role="button">
                                 观看
                             </a>
                         </p>

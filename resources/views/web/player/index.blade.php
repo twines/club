@@ -1,6 +1,6 @@
 @extends('web.layout.app')
 @section('title')
-    {{$topic->title}}
+    {{$topicVideo->title}}
 @endsection
 @section('content')
     {{--<iframe style="display: none" src="https://www.bilibili.com/"--}}
@@ -29,7 +29,8 @@
                 {{$topic->title}}
             </a>
             @foreach($topicList as $item)
-                <a class="list-group-item" href="{{url('/player',['id'=>$item->av])}}?p={{$item->p}}">
+                <a class="list-group-item" title="{{$item->title}}"
+                   href="{{url('/player',['id'=>$item->av,'p'=>$item->p])}}.html">
                     {{$item->title}}
                 </a>
             @endforeach
@@ -84,7 +85,7 @@
                 if (ua.match(/MicroMessenger/i) != "micromessenger") {
                     setInterval(function () {
                         window.location.reload()
-                    }, 1000);
+                    }, 2000);
                 }
                 return;
             }
@@ -129,7 +130,7 @@
                 inserttime: '300',//中间插入广告需要显示的时间点
 
                 adend: '/pay.jpg',
-                adendtime: '15,50',
+                adendtime: '15,0',
                 adendtype: 'jpg,mp4',
                 // adendlink: 'https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh,https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh',
                 //advertisements:'website:ad.json',//广告部分也可以用一个json文件来进行配置，可以动态文件
@@ -144,6 +145,9 @@
             player = new ckplayer(videoObject);
         }
 
+        function adjump() {
+            player.videoPlay();
+        }
 
         function parseVideo() {
             $.getScript("https://api.bilibili.com/playurl?callback=callbackfunction&aid={{$topic->av}}&page={{$p}}&platform=html5&quality=1&vtype=mp4&high_quality=1&type=jsonp");

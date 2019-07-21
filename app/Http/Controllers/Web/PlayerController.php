@@ -10,15 +10,16 @@ use App\Http\Controllers\Controller;
 class PlayerController extends Controller
 {
     //
-    public function index(Request $request,$aid)
+    public function index(Request $request, $av, $p = 1)
     {
-        $topic = Topic::where('av', $aid)->first();
         $pageData['p'] = $request->get('p', 1);
-        if (!$topic) {
+        $topicVideo = TopicVideo::where('av', $av)->where('p', $p)->first();
+        if (!$topicVideo) {
             abort(404);
         }
-        $pageData['topic'] = $topic;
-        $pageData['topicList'] = TopicVideo::where('av', $aid)->get();
-        return view('web.player.index',$pageData);
+        $pageData['topic'] = $topicVideo;
+        $pageData['topicVideo'] = $topicVideo;
+        $pageData['topicList'] = TopicVideo::where('av', $av)->get();
+        return view('web.player.index', $pageData);
     }
 }

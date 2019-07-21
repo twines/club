@@ -30,7 +30,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">主页</a></li>
                 @foreach($categoryList as $category)
-                    <li><a href="{{url('/',['id'=>$category->id])}}">{{$category->category_name}}</a></li>
+                    <li><a href="{{url('/',['id'=>$category->id])}}.html">{{$category->category_name}}</a></li>
                 @endforeach
             </ul>
         </div>
