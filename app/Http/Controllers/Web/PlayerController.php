@@ -27,10 +27,10 @@ class PlayerController extends Controller
     {
         $videoId = $request->get('videoId');
         $categoryId = $request->get('categoryId');
-        $key = 'video:' . $videoId;
+        $key = 'video:' . $videoId . ',' . $categoryId;
         Cache::increment($key);
         if (Cache::has($key)) {
-             $val = Cache::get($key);
+            $val = Cache::get($key);
             if ($val >= 5) {
                 return TopicVideo::where('id', $videoId)
                     ->update(['category_id' => $categoryId]);

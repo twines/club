@@ -10,6 +10,11 @@
         <li><a href="/">首页</a></li>
         <li class="active">{{$topicVideo->title}}</li>
     </ul>
+    <div id="myAlert" class="hidden">
+        <div class="alert alert-success">
+            <strong>提交成功！</strong>感谢您的支持，您的支持是我不懈的动力。
+        </div>
+    </div>
     <div class="row">
         <div class="col-sm-9">
             <iframe
@@ -31,44 +36,46 @@
                     {{$item->title}}
                 </a>
             @endforeach
+            <button class="btn btn-danger" data-toggle="modal" data-target="#myModal">
+                我要纠错，这个戏曲分类有误
+            </button>
             <img src="/pay.jpg" class="img-responsive">
             <h2>期待您的赞赏，有您的支持才有更加丰富的戏曲节目。</h2>
         </div>
         <!-- 模态框（Modal） -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"
-                                aria-hidden="true">×
-                        </button>
-                        <h4 class="modal-title" id="myModalLabel">
-                            戏曲纠错（按下 ESC 按钮退出）
-                        </h4>
-                    </div>
-                    <div class="modal-body">
-                        <h4>点击您认为的戏剧类型即可</h4>
-                        @foreach($categoryList as $category)
-                            <button type="button"
-                                    onclick="changeCategory('{{$topicVideo->id}}','{{$category->id}}')"
-                                    class="btn btn-primary">{{$category->category_name}}</button>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        戏曲纠错（按下 ESC 按钮退出）
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <h4>点击您认为的戏剧类型即可（没有错误请忽略）</h4>
+                    @foreach($categoryList as $category)
+                        <button type="button"
+                                onclick="changeCategory('{{$topicVideo->id}}','{{$category->id}}')"
+                                class="btn btn-primary">{{$category->category_name}}</button>
 
-                        @endforeach
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default"
-                                data-dismiss="modal">关闭
-                        </button>
-                    </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
+                    @endforeach
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">关闭
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
     </div>
     <script>
 
         // $('#myModal').modal('show')
-
 
         var flag = false;
         var browser = {
@@ -187,12 +194,15 @@
         function pauseHandler() {
             $('#myModal').modal('show')
         }
+
         function endedHandler() {
             $('#myModal').modal('show')
         }
+
         function adjump() {
             player.videoPlay();
         }
+
         function changeCategory(videoId, categoryId) {
             $.ajax({
                 url: '{{url('/player/changeCategory')}}',
@@ -203,9 +213,14 @@
                 success: function () {
                     $('#myModal').modal('hide')
                     player.videoPlay();
+                    $("#myAlert").removeClass('hidden');
+                    setTimeout(function () {
+                        $("#myAlert").addClass('hidden');
+                    }, 3000)
                 }
             });
         }
+
         function parseVideo() {
             $.getScript("https://api.bilibili.com/playurl?callback=callbackfunction&aid={{$topicVideo->av}}&page={{$p}}&platform=html5&quality=1&vtype=mp4&high_quality=1&type=jsonp");
         }
