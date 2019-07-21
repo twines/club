@@ -43,5 +43,18 @@
     <h5 class="small">网站展示的内容来自互联网，本站没有存储任何相关视频和图片，本站的目的是方便戏曲爱好者收看戏曲节目，同时希望为戏曲事业做一点自己的贡献，如果侵犯了您的权益请联系我们。QQ：1355081829</h5>
 </div>
 </body>
-
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
 </html>
