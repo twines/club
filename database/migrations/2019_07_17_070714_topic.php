@@ -22,6 +22,10 @@ class Topic extends Migration
                 ->unique()
                 ->comment('专题在B站唯一标识');
 
+            $table->unsignedInteger('category_id')
+                ->index()
+                ->comment('分类id');
+
             $table->string('topic_url')
                 ->nullable()
                 ->comment('专题的地址');

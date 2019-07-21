@@ -13,6 +13,6 @@ class Topic extends Model
         'img',
         'description',
         'duration',
-
+        'category_id',
     ];
 }
