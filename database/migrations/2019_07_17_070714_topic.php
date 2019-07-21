@@ -21,12 +21,10 @@ class Topic extends Migration
             $table->string('av')
                 ->unique()
                 ->comment('专题在B站唯一标识');
-            $table->string('topic_url')
-                ->comment('专题的地址');
 
-            $table->string('up_id')
-                ->index()
-                ->comment('up主的唯一标识');
+            $table->string('topic_url')
+                ->nullable()
+                ->comment('专题的地址');
 
             $table->unsignedInteger('priority')
                 ->default(0)
@@ -44,6 +42,9 @@ class Topic extends Migration
                 ->nullable()
                 ->comment('专题描述');
 
+            $table->unsignedInteger('duration')
+                ->default(0)
+                ->comment('视频时长');
 
             $table->unsignedTinyInteger('status')
                 ->default(0)

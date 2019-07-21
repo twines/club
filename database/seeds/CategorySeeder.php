@@ -12,31 +12,309 @@ class CategorySeeder extends Seeder
     public function run()
     {
         //
-        $categoryList = [
-            [
-                'category_name' => '其他',
-            ],
-            [
-                'category_name' => '京剧',
-            ],
-            [
-                'category_name' => '豫剧',
-            ],
-            [
-                'category_name' => '秦腔',
-            ],
-            [
-                'category_name' => '黄梅戏',
-            ],
-            [
-                'category_name' => '梆子戏',
-            ],
-            [
-                'category_name' => '河南坠子',
-            ],
-        ];
-        foreach ($categoryList as $category) {
-            \App\Models\Category::firstOrCreate($category);
+        $jsonStr = '{
+"RECORDS":[
+{
+"id":8,
+"category_name":"越剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":9,
+"category_name":"评剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":10,
+"category_name":"河南曲剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":11,
+"category_name":"皮影戏",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":12,
+"category_name":"龙江剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":13,
+"category_name":"莆仙戏",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":14,
+"category_name":"越调",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":15,
+"category_name":"黔剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":16,
+"category_name":"昆曲",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":17,
+"category_name":"滇剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":18,
+"category_name":"闽剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":19,
+"category_name":"蒲剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":20,
+"category_name":"赣剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":21,
+"category_name":"桂剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":22,
+"category_name":"潮剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":23,
+"category_name":"上党梆子",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":24,
+"category_name":"淮剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":25,
+"category_name":"湖南花鼓戏",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":26,
+"category_name":"秦腔",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":27,
+"category_name":"吉剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":28,
+"category_name":"彩调",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":29,
+"category_name":"绍剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":30,
+"category_name":"滑稽戏",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":31,
+"category_name":"高甲戏",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":32,
+"category_name":"藏剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":33,
+"category_name":"高腔",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":34,
+"category_name":"傣剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":35,
+"category_name":"婺剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":36,
+"category_name":"梨园戏",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":37,
+"category_name":"河北梆子",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":38,
+"category_name":"吕剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":39,
+"category_name":"梆子腔",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":40,
+"category_name":"采茶戏",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":41,
+"category_name":"沪剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":42,
+"category_name":"山东梆子",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":43,
+"category_name":"京剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":44,
+"category_name":"黄梅戏",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":45,
+"category_name":"湘剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":46,
+"category_name":"汉剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":47,
+"category_name":"凤阳花鼓戏",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":48,
+"category_name":"雁剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":49,
+"category_name":"豫剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":50,
+"category_name":"二人台",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":51,
+"category_name":"粤剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":52,
+"category_name":"徽剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":53,
+"category_name":"川剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":54,
+"category_name":"壮剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":55,
+"category_name":"祁剧",
+"created_at":null,
+"updated_at":null
+},
+{
+"id":56,
+"category_name":"晋剧",
+"created_at":null,
+"updated_at":null
+}
+]
+}';
+        $categoryList = json_decode($jsonStr, true);
+        foreach ($categoryList['RECORDS'] as $category) {
+            $data = [];
+            $data['category_name'] = $category['category_name'];
+            \App\Models\Category::firstOrCreate($data);
         }
     }
 }

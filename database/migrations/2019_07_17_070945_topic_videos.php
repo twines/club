@@ -57,6 +57,11 @@ class TopicVideos extends Migration
                 ->default(1)
                 ->comment('观看次数');
 
+            $table->unsignedInteger('duration')
+                ->default(0)
+                ->comment('视频时长');
+
+
             $table->unsignedTinyInteger('status')
                 ->default(2)
                 ->comment('状态0禁用，1可用，2新抓取');
