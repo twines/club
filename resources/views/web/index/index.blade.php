@@ -1,22 +1,38 @@
 @extends('web.layout.app')
 @section("title")@if($category){{$category->category_name}}@endif @endsection
 @section('content')
+    <style>
+        .hanyun-title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            color: #333333;
+        }
+        a:hover{
+            text-decoration: none;
+        }
+    </style>
     <div class="row">
         @foreach($topicList as $topic)
-            <div class="col-xs-6 col-md-3">
-                <div class="thumbnail">
-                    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562957718296&di=f7f9b430582e683c320815300d97aa2d&imgtype=0&src=http%3A%2F%2Fimg1.gtimg.com%2Frushidao%2Fpics%2Fhv1%2F54%2F85%2F2239%2F145612704.jpg"
-                         alt="{{$topic->title}}">
-                    <div class="caption">
-                        <h3>{{$topic->title}}</h3>
-                        <p>
-                            <a href="{{url('/player',['id'=>$topic->av,'p'=>1])}}.html" title="{{$topic->title}}" class="btn btn-primary" role="button">
-                                观看
-                            </a>
-                        </p>
+            <a href="{{url('/player',['id'=>$topic->av,'p'=>1])}}.html" title="{{$topic->title}}">
+                <div class="col-xs-6 col-md-3" style="height: 300px;overflow: hidden">
+                    <div class="thumbnail">
+                        <img src="{{$topic->img}}"
+                             alt="{{$topic->title}}">
+                        <div class="caption">
+                            <h4 class="hanyun-title">{{$topic->title}}</h4>
+                            <p>
+                                <a href="{{url('/player',['id'=>$topic->av,'p'=>1])}}.html" title="{{$topic->title}}"
+                                   class="btn btn-primary" role="button">
+                                    观看
+                                </a>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
         @endforeach
     </div>
     <div class="row text-center">

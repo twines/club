@@ -8,6 +8,9 @@
     {{--</iframe>--}}
     <ul class="breadcrumb">
         <li><a href="/">首页</a></li>
+        <li>
+            <a href="{{url('/',['id'=>$topicVideo->category->id])}}.html">{{$topicVideo->category->category_name}}</a>
+        </li>
         <li class="active">{{$topicVideo->title}}</li>
     </ul>
     <div id="myAlert" class="hidden">
@@ -159,9 +162,9 @@
                 // // adfrontlink: 'https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh,https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh',
                 // adfronttype: 'jpg',
 
-                // adpause: '/pay.jpg',
-                // adpausetime: '15',//暂信广告每个播放5秒种然后循环播放
-                // // adpauselink: 'https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh,https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh',
+                adpause: '/pay.jpg',
+                adpausetime: '15',//暂信广告每个播放5秒种然后循环播放
+                // adpauselink: 'https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh,https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh',
 
 
                 // adinsert: '/pay.jpg',
@@ -187,12 +190,12 @@
         }
 
         function loadedHandler() {
-            player.addListener('pause', pauseHandler); //监听暂停播放
+            // player.addListener('pause', pauseHandler); //监听暂停播放
             player.addListener('ended', endedHandler); //监听播放结束
         }
 
         function pauseHandler() {
-            $('#myModal').modal('show')
+            // $('#myModal').modal('show')
         }
 
         function endedHandler() {
