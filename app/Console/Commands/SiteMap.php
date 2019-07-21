@@ -65,7 +65,7 @@ class SiteMap extends Command
                 foreach ($videoTopicList as $video) {
                     $xml .= '<url>';
                     $xml .= '<loc>';
-                    $xml .= url('/', ['id' => $category->id]) . '.html';
+                    $xml .= url('/player', ['av' => $video->av, 'p' => $video->p]) . '.html';
                     $xml .= '</loc>';
                     $xml .= '<priority>0.8</priority>';
                     $xml .= '<lastmod>';
