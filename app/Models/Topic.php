@@ -14,5 +14,6 @@ class Topic extends Model
         'description',
         'duration',
         'category_id',
+        'p',
     ];
 }

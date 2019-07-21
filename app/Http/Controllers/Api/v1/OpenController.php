@@ -50,6 +50,7 @@ class OpenController extends Controller
                     $video['title'] = $page['part'];
                     $video['duration'] = $page['duration'];
                     $video['category_id'] = $categoryId;
+                    $video['p'] = $page['page'];
                     $topicVideoList[] = $video;
                 }
                 TopicVideo::insert($topicVideoList);
