@@ -79,7 +79,7 @@
     <script>
 
         // $('#myModal').modal('show')
-
+        var _token = '{{csrf_token()}}';
         var flag = false;
         var browser = {
             versions: function () {
@@ -192,10 +192,30 @@
         function loadedHandler() {
             // player.addListener('pause', pauseHandler); //监听暂停播放
             player.addListener('ended', endedHandler); //监听播放结束
+            player.addListener('time', timeHandler); //监听播放时间
         }
 
         function pauseHandler() {
             // $('#myModal').modal('show')
+        }
+
+        var tag = false;
+
+        function timeHandler(time) {
+            if (!tag) {
+                if (time > 300) {
+                    tag = true;
+                    $.ajax({
+                        url: '/player/time/{{$topicVideo->topic_id}}',
+                        data: {_token: _token},
+                        method: 'post',
+                        success: function () {
+
+                        }
+                    });
+                }
+
+            }
         }
 
         function endedHandler() {
@@ -211,7 +231,7 @@
                 url: '{{url('/player/changeCategory')}}',
                 method: 'post',
                 data: {
-                    videoId: videoId, categoryId: categoryId, _token: '{{csrf_token()}}'
+                    videoId: videoId, categoryId: categoryId, _token: _token
                 },
                 success: function () {
                     $('#myModal').modal('hide')

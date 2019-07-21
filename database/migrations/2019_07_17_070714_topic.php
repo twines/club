@@ -28,6 +28,10 @@ class Topic extends Migration
                 ->index()
                 ->comment('up主的唯一标识');
 
+            $table->unsignedInteger('priority')
+                ->default(0)
+                ->comment('播放的权重，子分类每播放300以后权重就增加1');
+
             $table->string('img')
                 ->nullable()
                 ->comment('专题封面');

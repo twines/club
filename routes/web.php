@@ -16,4 +16,6 @@ Route::group(['namespace' => 'Web', 'middleware' => ['webMiddleware']], function
     Route::get('/{id}.html', 'IndexController@index');
     Route::get('/player/{av}/{p?}.html', 'PlayerController@index');
     Route::post('/player/changeCategory', 'PlayerController@changeCategory');
+    //视频播放时长
+    Route::post('/player/time/{topicId}', 'PlayerController@addPlayTime');
 });

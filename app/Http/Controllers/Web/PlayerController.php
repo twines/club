@@ -43,4 +43,9 @@ class PlayerController extends Controller
             }
         }
     }
+
+    public function addPlayTime($topicId)
+    {
+       return Topic::where('id', $topicId)->increment('priority');
+    }
 }

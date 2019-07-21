@@ -12,7 +12,8 @@ class IndexController extends Controller
     //
     public function index(Request $request, $id = 0)
     {
-        $pageData['topicList'] = Topic::orderby('id', 'desc')
+        $pageData['topicList'] = Topic::orderby('priority', 'desc')
+            ->orderby('id', 'desc')
             ->where(function ($q) use ($id) {
                 if ($id) {
                     $q->where('category_id', $id);
