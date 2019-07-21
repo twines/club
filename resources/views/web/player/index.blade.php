@@ -8,7 +8,7 @@
     {{--</iframe>--}}
     <ul class="breadcrumb">
         <li><a href="/">首页</a></li>
-        <li class="active">{{$topic->title}}</li>
+        <li class="active">{{$topicVideo->title}}</li>
     </ul>
     <div class="row">
         <div class="col-sm-9">
@@ -18,15 +18,12 @@
                     id="main"
                     src="https://www.bilibili.com/blackboard/html5mobileplayer.html?aid=54886554&cid=95990482&page=4&high_quality=1">
             </iframe>
-            <div id="video" style="width: 100%;margin: 0 auto">
-            </div>
-            <div class="row text-center center-block">
-                <a class="btn btn-primary hidden" id="refresh">刷新重试</a>
+            <div id="video" class="row" style="width: 100%;margin: 0 auto">
             </div>
         </div>
         <div class="col-sm-3">
             <a href="#" class="list-group-item active">
-                {{$topic->title}}
+                {{$topicVideo->title}}
             </a>
             @foreach($topicList as $item)
                 <a class="list-group-item" title="{{$item->title}}"
@@ -37,8 +34,42 @@
             <img src="/pay.jpg" class="img-responsive">
             <h2>期待您的赞赏，有您的支持才有更加丰富的戏曲节目。</h2>
         </div>
+        <!-- 模态框（Modal） -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            戏曲纠错（按下 ESC 按钮退出）
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>点击您认为的戏剧类型即可</h4>
+                        @foreach($categoryList as $category)
+                            <button type="button"
+                                    onclick="changeCategory('{{$topicVideo->id}}','{{$category->id}}')"
+                                    class="btn btn-primary">{{$category->category_name}}</button>
+
+                        @endforeach
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default"
+                                data-dismiss="modal">关闭
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
     </div>
     <script>
+
+        // $('#myModal').modal('show')
+
+
         var flag = false;
         var browser = {
             versions: function () {
@@ -77,6 +108,8 @@
                 }
             }
         });
+
+
         var player;
 
         function callbackfunction(j) {
@@ -99,6 +132,7 @@
                 loop: false, //播放结束是否循环播放
                 autoplay: false,//是否自动播放
                 poster: j.img,
+                loaded: 'loadedHandler', //当播放器加载后执行的函数
                 preview: {
                     file: [j.img],
                     scale: 2
@@ -118,16 +152,16 @@
                 // // adfrontlink: 'https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh,https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh',
                 // adfronttype: 'jpg',
 
-                adpause: '/pay.jpg',
-                adpausetime: '15',//暂信广告每个播放5秒种然后循环播放
-                // adpauselink: 'https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh,https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh',
+                // adpause: '/pay.jpg',
+                // adpausetime: '15',//暂信广告每个播放5秒种然后循环播放
+                // // adpauselink: 'https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh,https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh',
 
 
-                adinsert: '/pay.jpg',
-                adinserttime: '15',//中间插入广告的单个视频的时长
-                // adinsertlink: 'https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh,https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh',
-                adinserttype: 'jpg',
-                inserttime: '300',//中间插入广告需要显示的时间点
+                // adinsert: '/pay.jpg',
+                // adinserttime: '15',//中间插入广告的单个视频的时长
+                // // adinsertlink: 'https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh,https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=8hiawluh',
+                // adinserttype: 'jpg',
+                // inserttime: '300',//中间插入广告需要显示的时间点
 
                 adend: '/pay.jpg',
                 adendtime: '15,0',
@@ -145,12 +179,35 @@
             player = new ckplayer(videoObject);
         }
 
+        function loadedHandler() {
+            player.addListener('pause', pauseHandler); //监听暂停播放
+            player.addListener('ended', endedHandler); //监听播放结束
+        }
+
+        function pauseHandler() {
+            $('#myModal').modal('show')
+        }
+        function endedHandler() {
+            $('#myModal').modal('show')
+        }
         function adjump() {
             player.videoPlay();
         }
-
+        function changeCategory(videoId, categoryId) {
+            $.ajax({
+                url: '{{url('/player/changeCategory')}}',
+                method: 'post',
+                data: {
+                    videoId: videoId, categoryId: categoryId, _token: '{{csrf_token()}}'
+                },
+                success: function () {
+                    $('#myModal').modal('hide')
+                    player.videoPlay();
+                }
+            });
+        }
         function parseVideo() {
-            $.getScript("https://api.bilibili.com/playurl?callback=callbackfunction&aid={{$topic->av}}&page={{$p}}&platform=html5&quality=1&vtype=mp4&high_quality=1&type=jsonp");
+            $.getScript("https://api.bilibili.com/playurl?callback=callbackfunction&aid={{$topicVideo->av}}&page={{$p}}&platform=html5&quality=1&vtype=mp4&high_quality=1&type=jsonp");
         }
 
         parseVideo();

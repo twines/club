@@ -15,4 +15,5 @@ Route::group(['namespace' => 'Web', 'middleware' => ['webMiddleware']], function
     Route::get('/{id?}', 'IndexController@index');
     Route::get('/{id}.html', 'IndexController@index');
     Route::get('/player/{av}/{p?}.html', 'PlayerController@index');
+    Route::post('/player/changeCategory', 'PlayerController@changeCategory');
 });
