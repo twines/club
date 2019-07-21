@@ -18,7 +18,7 @@ class TopicVideoSeeder extends Seeder
                 'img' => '',
                 'av' => '54886554',
                 'cid' => '95987305',
-                'p' => 2,
+                'p' => 1,
                 'title' => '扒瓜园',
                 'description' => '扒瓜园',
             ],

@@ -40,7 +40,7 @@
     @yield('content')
 </div>
 <div class="jumbotron text-center" style="margin-bottom:0">
-    <h5 class="small">网站展示的内容来自互联网，如果侵犯了您的权益请联系我们。QQ：1355081829</h5>
+    <h5 class="small">网站展示的内容来自互联网，本站没有存储任何相关视频和图片，本站的目的是方便戏曲爱好者收看戏曲节目，同时希望为戏曲事业做一点自己的贡献，如果侵犯了您的权益请联系我们。QQ：1355081829</h5>
 </div>
 </body>
 

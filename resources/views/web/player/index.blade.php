@@ -21,7 +21,7 @@
                     width="8"
                     height="8"
                     id="main"
-                    src="https://www.bilibili.com/blackboard/html5mobileplayer.html?aid=54886554&cid=95990482&page=4&high_quality=1">
+                    src="https://www.bilibili.com/blackboard/html5mobileplayer.html?aid={{$topicVideo->av}}&cid={{$topicVideo->cid}}&page={{$topicVideo->p}}&high_quality=1">
             </iframe>
             <div id="video" class="row" style="width: 100%;margin: 0 auto">
             </div>
@@ -222,7 +222,7 @@
         }
 
         function parseVideo() {
-            $.getScript("https://api.bilibili.com/playurl?callback=callbackfunction&aid={{$topicVideo->av}}&page={{$p}}&platform=html5&quality=1&vtype=mp4&high_quality=1&type=jsonp");
+            $.getScript("https://api.bilibili.com/playurl?callback=callbackfunction&aid={{$topicVideo->av}}&page={{$topicVideo->p}}&platform=html5&quality=1&vtype=mp4&high_quality=1&type=jsonp");
         }
 
         parseVideo();

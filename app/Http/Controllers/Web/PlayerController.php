@@ -11,10 +11,16 @@ use Illuminate\Support\Facades\Cache;
 class PlayerController extends Controller
 {
     //
-    public function index(Request $request, $av, $p = 1)
+    public function index(Request $request, $av, $p)
     {
-        $pageData['p'] = $request->get('p', 1);
-        $topicVideo = TopicVideo::where('av', $av)->where('p', $p)->first();
+        $pageData['p'] = $request->get('p');
+        $topicVideo = TopicVideo::where('av', $av)
+            ->where(function ($q) use ($p) {
+                if ($p) {
+                    $q->where('p', $p);
+                }
+            })
+            ->first();
         if (!$topicVideo) {
             abort(404);
         }
