@@ -69,7 +69,7 @@ class SiteMap extends Command
                     $xml .= '</loc>';
                     $xml .= '<priority>0.8</priority>';
                     $xml .= '<lastmod>';
-                    $xml .= $video->updated_at;
+                    $xml .= $video->updated_at ? $video->updated_at : $video->created_at;
                     $xml .= '</lastmod>';
                     $xml .= '<changefreq>daily</changefreq>';
                     $xml .= '</url>';
