@@ -56,8 +56,8 @@ class SiteMap extends Command
         $siteMap = public_path('/') . '/sitemap.xml';
         @unlink($siteMap);
         file_put_contents($siteMap, $xml, FILE_APPEND);
+        $urls = [];
         foreach ($categoryList as $category) {
-            $urls = [];
             $siteMap = public_path('/') . "sitemap/{$category->id}.xml";
             @unlink($siteMap);
             $videoTopicList = TopicVideo::where('category_id', $category->id)->get();
@@ -74,12 +74,16 @@ class SiteMap extends Command
                     $xml .= '</lastmod>';
                     $xml .= '<changefreq>daily</changefreq>';
                     $xml .= '</url>';
-                    $urls[] = url('/player', ['av' => $video->av, 'p' => $video->p]) . '.html';
+                    if (count($urls) <=500) {
+                        $urls[] = url('/player', ['av' => $video->av, 'p' => $video->p]) . '.html';
+                    }else{
+                        $this->postData($urls);
+                        $urls = [];
+                    }
                 }
             }
             $xml .= '</urlset>';
             file_put_contents($siteMap, $xml, FILE_APPEND);
-            $this->postData($urls);
         }
     }
 
@@ -96,6 +100,6 @@ class SiteMap extends Command
         );
         curl_setopt_array($ch, $options);
         $result = curl_exec($ch);
-        echo $result;
+        echo $result>PHP_EOL;
     }
 }
