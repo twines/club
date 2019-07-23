@@ -56,8 +56,8 @@ class SiteMap extends Command
         $siteMap = public_path('/') . '/sitemap.xml';
         @unlink($siteMap);
         file_put_contents($siteMap, $xml, FILE_APPEND);
-        $urls = [];
         foreach ($categoryList as $category) {
+            $urls = [];
             $siteMap = public_path('/') . "sitemap/{$category->id}.xml";
             @unlink($siteMap);
             $videoTopicList = TopicVideo::where('category_id', $category->id)->get();
@@ -74,20 +74,20 @@ class SiteMap extends Command
                     $xml .= '</lastmod>';
                     $xml .= '<changefreq>daily</changefreq>';
                     $xml .= '</url>';
-                    $urls[]=url('/player', ['av' => $video->av, 'p' => $video->p]) . '.html';
+                    $urls[] = url('/player', ['av' => $video->av, 'p' => $video->p]) . '.html';
                 }
             }
             $xml .= '</urlset>';
             file_put_contents($siteMap, $xml, FILE_APPEND);
+            $this->postData($urls);
         }
-        $this->postData($urls);
     }
 
     private function postData($urls)
     {
         $api = 'http://data.zz.baidu.com/urls?site=https://api.xiangshike.com&token=fBerQEQsKpaXMvSF';
         $ch = curl_init();
-        $options =  array(
+        $options = array(
             CURLOPT_URL => $api,
             CURLOPT_POST => true,
             CURLOPT_RETURNTRANSFER => true,
