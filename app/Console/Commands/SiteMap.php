@@ -100,6 +100,6 @@ class SiteMap extends Command
         );
         curl_setopt_array($ch, $options);
         $result = curl_exec($ch);
-        echo $result>PHP_EOL;
+        echo $result.PHP_EOL;
     }
 }
