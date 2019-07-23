@@ -74,11 +74,11 @@ class SiteMap extends Command
                     $xml .= '</lastmod>';
                     $xml .= '<changefreq>daily</changefreq>';
                     $xml .= '</url>';
+                    $urls[]=url('/player', ['av' => $video->av, 'p' => $video->p]) . '.html';
                 }
             }
             $xml .= '</urlset>';
             file_put_contents($siteMap, $xml, FILE_APPEND);
-            $urls[]=url('/player', ['av' => $video->av, 'p' => $video->p]) . '.html';
         }
         $this->postData($urls);
     }
