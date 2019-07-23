@@ -56,6 +56,7 @@ class SiteMap extends Command
         $siteMap = public_path('/') . '/sitemap.xml';
         @unlink($siteMap);
         file_put_contents($siteMap, $xml, FILE_APPEND);
+        $urls = [];
         foreach ($categoryList as $category) {
             $siteMap = public_path('/') . "sitemap/{$category->id}.xml";
             @unlink($siteMap);
@@ -77,7 +78,24 @@ class SiteMap extends Command
             }
             $xml .= '</urlset>';
             file_put_contents($siteMap, $xml, FILE_APPEND);
+            $urls[]=url('/player', ['av' => $video->av, 'p' => $video->p]) . '.html';
         }
+        $this->postData($urls);
+    }
 
+    private function postData($urls)
+    {
+        $api = 'http://data.zz.baidu.com/urls?site=https://api.xiangshike.com&token=fBerQEQsKpaXMvSF';
+        $ch = curl_init();
+        $options =  array(
+            CURLOPT_URL => $api,
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => implode("\n", $urls),
+            CURLOPT_HTTPHEADER => array('Content-Type: text/plain'),
+        );
+        curl_setopt_array($ch, $options);
+        $result = curl_exec($ch);
+        echo $result;
     }
 }
