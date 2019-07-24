@@ -23,4 +23,9 @@ class IndexController extends Controller
         $pageData['category'] = Category::find($id);
         return view('web.index.index', $pageData);
     }
+
+    public function token()
+    {
+        return 'hanyunmuyu';
+    }
 }
