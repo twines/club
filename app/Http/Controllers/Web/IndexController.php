@@ -24,8 +24,8 @@ class IndexController extends Controller
         return view('web.index.index', $pageData);
     }
 
-    public function token()
+    public function token(Request $request)
     {
-        return 'hanyunmuyu';
+        return $request->get('token');
     }
 }
