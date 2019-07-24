@@ -26,6 +26,6 @@ class IndexController extends Controller
 
     public function token(Request $request)
     {
-        return $request->get('token');
+        return $request->get('echostr');
     }
 }
