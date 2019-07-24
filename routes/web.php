@@ -18,4 +18,7 @@ Route::group(['namespace' => 'Web', 'middleware' => ['webMiddleware']], function
     Route::post('/player/changeCategory', 'PlayerController@changeCategory');
     //视频播放时长
     Route::post('/player/time/{topicId}', 'PlayerController@addPlayTime');
+    Route::get('/token', function () {
+        return 'hanyunmuyu';
+    });
 });
