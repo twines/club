@@ -89,7 +89,7 @@ class SiteMap extends Command
 
     private function postData($urls)
     {
-        $api = 'http://data.zz.baidu.com/urls?site=https://api.xiangshike.com&token=fBerQEQsKpaXMvSF';
+        $api = 'http://data.zz.baidu.com/urls?site=www.xiangshike.com&token=fBerQEQsKpaXMvSF';
         $ch = curl_init();
         $options = array(
             CURLOPT_URL => $api,
