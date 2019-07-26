@@ -17,7 +17,7 @@ class Web
     public function handle($request, Closure $next)
     {
         $arr = explode('/', trim($request->path(), '.html'));
-        view()->share('categoryList', Category::orderby('id', 'desc')->get());
+        view()->share('categoryList', Category::orderby('id', 'desc')->where('status',1)->get());
         view()->share('pathCategoryId',array_pop($arr));
 
         return $next($request);
