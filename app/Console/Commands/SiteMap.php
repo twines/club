@@ -48,7 +48,7 @@ class SiteMap extends Command
             $xml .= url('/sitemap', ['id' => $category->id]) . '.xml';
             $xml .= '</loc>';
             $xml .= '<lastmod>';
-            $xml .= $category->updated_at;
+            $xml .= date("Y-m-d H:i:s");
             $xml .= '</lastmod>';
             $xml .= '</sitemap>';
         }
@@ -56,6 +56,7 @@ class SiteMap extends Command
         $siteMap = public_path('/') . '/sitemap.xml';
         @unlink($siteMap);
         file_put_contents($siteMap, $xml, FILE_APPEND);
+        $urls = [];
         foreach ($categoryList as $category) {
             $siteMap = public_path('/') . "sitemap/{$category->id}.xml";
             @unlink($siteMap);
@@ -69,15 +70,36 @@ class SiteMap extends Command
                     $xml .= '</loc>';
                     $xml .= '<priority>0.8</priority>';
                     $xml .= '<lastmod>';
-                    $xml .= $video->updated_at;
+                    $xml .= date("Y-m-d H:i:s");
                     $xml .= '</lastmod>';
                     $xml .= '<changefreq>daily</changefreq>';
                     $xml .= '</url>';
+                    if (count($urls) <=500) {
+                        $urls[] = url('/player', ['av' => $video->av, 'p' => $video->p]) . '.html';
+                    }else{
+                        $this->postData($urls);
+                        $urls = [];
+                    }
                 }
             }
             $xml .= '</urlset>';
             file_put_contents($siteMap, $xml, FILE_APPEND);
         }
+    }
 
+    private function postData($urls)
+    {
+        $api = 'http://data.zz.baidu.com/urls?site=www.xiangshike.com&token=fBerQEQsKpaXMvSF';
+        $ch = curl_init();
+        $options = array(
+            CURLOPT_URL => $api,
+            CURLOPT_POST => true,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POSTFIELDS => implode("\n", $urls),
+            CURLOPT_HTTPHEADER => array('Content-Type: text/plain'),
+        );
+        curl_setopt_array($ch, $options);
+        $result = curl_exec($ch);
+        echo $result.PHP_EOL;
     }
 }
